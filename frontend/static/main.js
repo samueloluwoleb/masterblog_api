@@ -38,13 +38,13 @@ function renderTemplate(datas){
         const postDiv = document.createElement('div');
         postDiv.className = 'post';
         postDiv.innerHTML = `<h1>${post.author}</h1><h2>${post.title}</h2><p>${post.content}</p><p>${post.date}</p>
-        <button onclick="deletePost(${post.id})">Delete-eeeeeeeeee</button> <div class = "upBtn"><button onclick="showUpdateFields(${post.id})">U</button></div>
-        <input type="button" onclick="like(${post.id})" value="Like - ${post.likes}"/>
-        <div class="update-fields" id="update-fields-${post.id}" style="display: none;">
-            <input type="text" id="post-title-${post.id}" placeholder="Enter New Post Title">
-            <input type="text" id="post-content-${post.id}" placeholder="Enter New Post Content">
-            <input type="text" id="post-date-${post.id}" placeholder="*Enter New Post Date - YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" style="width: 310px;">
-            <button onclick="submit(${post.id})">Submit-tttt</button>
+        <div class="buttons"><button onclick="deletePost(${post.id})" style="width: 75px">Delete</button> <button onclick="showUpdateFields(${post.id})" style="width: 75px">Update</button>
+        <input type="button" onclick="like(${post.id})" value="Likes - ${post.likes}" style="width: 75px; height: 32px;"/></div>
+        <div class="update-fields" id="update-fields-${post.id}" style="display: none;"/>
+            <input type="text" id="post-title-${post.id}" placeholder="Enter New Post Title"/>
+            <input type="text" id="post-content-${post.id}" placeholder="Enter New Post Content"/>
+            <input type="text" id="post-date-${post.id}" placeholder="*Enter New Post Date - YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" style="width: 248px;"/>
+            <button onclick="submit(${post.id})" style="width: 75px; height: 24px;">Submit</button>
         </div>`;
         postContainer.appendChild(postDiv);
     });

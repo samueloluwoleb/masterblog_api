@@ -14,14 +14,20 @@
             <input type="text" id="api-base-url" placeholder="Enter API Base URL" value="http://127.0.0.1:5002/api">
             <button onclick="loadPosts()">Load Posts</button>
         </div>
-        <div class="input-field">
-            <input type="text" id="post-author" placeholder="*Enter Post Author">
-            <input type="text" id="post-title" placeholder="*Enter Post Title">
-            <input type="text" id="post-content" placeholder="*Enter Post Content">
-            <input type="text" id="post-date" placeholder="*Enter Post Date - YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}">
-            <button onclick="addPost()">Add Post</button>
+        <div class="input-field div-container" >
+            <div class="box" >
+                <input type="text" id="post-author" placeholder="*Enter Post Author"/>
+                <input type="text" id="post-title" placeholder="*Enter Post Title"/>
+                <input type="text" id="post-date" placeholder="*Enter Post Date - YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"/>
+            </div>
+            <div class="box div-box">
+                <input class="input-box" type="text" id="post-content" placeholder="*Enter Post Content"/>
+            </div>
+            <div class="box">
+                <button onclick="addPost()">Add Post</button>
+            </div>
         </div>
-        <div>
+        <div class="sub-menu">
             <label for="sorting">Sort posts by:</label>
                 <select name="sorting" id="sorting">
                     <option value="default" selected>Choose an option</option>
@@ -37,7 +43,7 @@
             <input type="text" id="post-search" placeholder="Search for any post either by author, title or date" style="width: 350px;">
             <button onclick="search()">Search</button>
         </div>
-        <div id="post-container">
+        <div id="post-container" class="sub-container">
             <!-- Blog posts will be inserted here by JavaScript -->
         </div>
     </div>

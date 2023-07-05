@@ -35,6 +35,27 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.5s ease;
 }
+.buttons {
+    display: flex;
+    padding: 0px;
+    position: relative;
+    max-width: auto;
+}
+
+.buttons > button {
+    padding: 5px;
+    margin: 5px;
+    background-color: buttonface;
+}
+
+.buttons > input {
+    background-color: #4466ee;
+    position: relative;
+    top: 5px;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+}
 
 .input-field input {
     flex-grow: 1;
@@ -46,13 +67,14 @@ body {
 }
 
 .input-field button {
-    background-color: #4466ee;
-    color: #fff;
+    background-color: buttonface;
+    color: black;
     cursor: pointer;
+    border: .1px solid black;
 }
 
 .input-field button:hover {
-    background-color: #3355dd;
+    background-color: buttonface;
 }
 
 .post {
@@ -65,7 +87,7 @@ body {
 
 .post h2 {
     margin: 0;
-    color: #4466ee;
+    color: #738a82;
     font-weight: 700;
 }
 
@@ -75,17 +97,54 @@ body {
 }
 
 .post button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ff4444;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
+    position: relative;
+    background-color: buttonface;
+    color: black;
+    padding: auto;
     border-radius: 5px;
     cursor: pointer;
+    border: .1px solid black;
 }
 
 .post button:hover {
-    background-color: #cc0000;
+    background-color: buttonface;
+}
+
+.update-fields {
+    display: flex;
+    margin-top: 20px;
+    position: relative;
+}
+
+.update-fields > button {
+    position: relative;
+    color: black;
+    border-radius: 4px;
+    border: .1px solid black;
+}
+
+.update-fields > input {
+    margin-bottom : 0px;
+}
+
+.div-container {
+  display: block;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.box input::placeholder {
+  text-align: center;
+}
+
+.sub-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
