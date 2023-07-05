@@ -1,6 +1,7 @@
-//Function that runs once the window is fully loaded
+
 var dropDownSelValue = "default";
 
+//Add event listener for the sorting dropdown which gets triggered whenever there is a new selection
 var selectElement = document.getElementById('sorting');
 selectElement.addEventListener('change', function() {
     dropDownSelValue = handleSelectChange();
@@ -8,6 +9,7 @@ selectElement.addEventListener('change', function() {
     loadPosts();
 });
 
+//Function that runs automatically once the window is fully loaded
 window.onload = function() {
     // Attempt to retrieve the API base URL from the local storage
     var savedBaseUrl = localStorage.getItem('apiBaseUrl');
@@ -17,7 +19,7 @@ window.onload = function() {
         loadPosts();
     }
 }
-
+// Returns the value of the selection of the sorting dropdown
 function handleSelectChange() {
     // Retrieve the selected option
     var selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -26,14 +28,15 @@ function handleSelectChange() {
 
     return selectedValue;
 }
-
+// Handles the templating to be attached to the index.html file
 function renderTemplate(datas){
     // Once the data is ready, we can use it
     // Clear out the post container first
     const postContainer = document.getElementById('post-container');
     postContainer.innerHTML = '';
 
-    // For each post in the response, create a new post element and add it to the page
+    // For each post in the response, create a new post element with its inner elements and containing data and add it
+    //to the index.html page
     datas.forEach(post => {
         const postDiv = document.createElement('div');
         postDiv.className = 'post';
@@ -42,7 +45,7 @@ function renderTemplate(datas){
         <input type="button" onclick="like(${post.id})" value="Likes - ${post.likes}" style="width: 75px; height: 32px;"/></div>
         <div class="update-fields" id="update-fields-${post.id}" style="display: none;"/>
             <input type="text" id="post-title-${post.id}" placeholder="Enter New Post Title"/>
-            <input type="text" id="post-content-${post.id}" placeholder="Enter New Post Content"/>
+            <input type="text" id="post-content-${post.id}" placeholder="Enter New Post Content" style="width: 400px;"/>
             <input type="text" id="post-date-${post.id}" placeholder="*Enter New Post Date - YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" style="width: 248px;"/>
             <button onclick="submit(${post.id})" style="width: 75px; height: 24px;">Submit</button>
         </div>`;
@@ -183,12 +186,13 @@ function deletePost(postId) {
     .catch(error => console.error('Error:', error));  // If an error occurs, log it to the console
 }
 
+// Displays the hidden update fields when it is called, thesen fields accept input from user
 function showUpdateFields(postId) {
   const updateFieldsDiv = document.getElementById(`update-fields-${postId}`);
   updateFieldsDiv.style.display = 'block';
 }
 
-
+// Handles the submission of the updated fields
 function submit(postId) {
     var baseUrl = document.getElementById('api-base-url').value;
     var postTitle = document.getElementById(`post-title-${postId}`).value;
@@ -218,7 +222,7 @@ function submit(postId) {
     })
     .catch(error => console.error('Error:', error));  // If an error occurs, log it to the console
 }
-
+// Handles the search information that is sent to the search endpoint
 function search(){
     var baseUrl = document.getElementById('api-base-url').value;
     var postSearch = document.getElementById('post-search').value;
@@ -231,7 +235,7 @@ function search(){
         })
 
 }
-
+// Handles the Like operation by sending the post id to the like endpoint and rendering the returned data
 function like(postId) {
     var baseUrl = document.getElementById('api-base-url').value;
 

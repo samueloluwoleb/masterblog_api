@@ -21,6 +21,11 @@ def load_data(file_path):
 
 @app.route('/api/posts', methods=['POST'])
 def add_posts():
+    """
+        Runs when a post request is sent by client to this endpoint to add new blogpost to the database.
+        Generates id for the new post and returns the new post data back to client
+    :return:
+    """
     new_post = request.get_json()
     title = new_post.get('title')
     content = new_post.get('content')
@@ -59,6 +64,11 @@ def add_posts():
 
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
+    """
+        Runs when the endpoint is triggered by client and returns the sorted or unsorted data fetched from the blogposts
+        database to the client
+    :return:
+    """
     sort = request.args.get('sort', '')
     direction = request.args.get('direction')
     try:
@@ -69,6 +79,7 @@ def get_posts():
     if sort == '':
         return jsonify(blog_posts)
 
+    # Sorts the blogposts data based on the sorting parameters provided by the request sent by client
     if sort == 'title' and direction == 'asc':
         sorted_posts = sorted(blog_posts, key=lambda x: x['title'])
     elif sort == 'title' and direction == 'desc':
@@ -93,15 +104,24 @@ def get_posts():
 
 @app.route('/api/posts/<int:post_id>', methods=['DELETE'])
 def delete(post_id):
+    """
+        Runs when the endpoint is visited by client, the provided id is used to locate the unique post and
+        it is deleted from the database
+    :param post_id:
+    :return:
+    """
     try:
         blog_posts = load_data('posts.json')
     except JSONDecodeError:
         return jsonify({"message": "Oops, there is a problem. It is not you, we promise !!!"}), 500
+
+    # runs through the blogposts database to get teh post with the unique id
     for count, post in enumerate(blog_posts):
         if post['id'] == post_id:
             del blog_posts[count]
             json_data = json.dumps(blog_posts)
 
+            # Writes the updated bloposts data to the posts.json file database
             with open("posts.json", "w") as fileobj:
                 fileobj.write(json_data)
             return jsonify({"message": f"Post with id {post_id} has been deleted successfully."})
@@ -112,8 +132,8 @@ def delete(post_id):
 @app.route('/api/posts/<int:post_id>', methods=['PUT'])
 def update(post_id):
     """
-        Navigates to the update.html webpage, gets the update info from user using a form,
-        updates the database with the new information and loads the index.html page to view the changes
+        Runs when there is an update operation post request from client's form, gets the update info and
+        updates the database with the new information and returns the updated info to the client
     :param post_id:
     :return:
     """
@@ -153,15 +173,21 @@ def update(post_id):
 
 @app.route('/api/posts/search')
 def search():
+    """
+        Runs when the client sends a search query and returns posts matching the searched query to client
+    :return:
+    """
     try:
         blog_posts = load_data('posts.json')
     except JSONDecodeError:
         return jsonify({"message": "Oops, there is a problem. It is not you, we promise !!!"}), 500
 
+    # gets the serach-word sent by client
     search_word = request.args.get('search-word')
     if search_word == '':
         return jsonify(blog_posts)
 
+    # runs through blogposts database to find posts that matches search query
     list_of_posts = []
     for post in blog_posts:
         if search_word in post.get('title'):
@@ -177,30 +203,11 @@ def search():
             list_of_posts.append(post)
     return jsonify(list_of_posts)
 
-    # key_word = ""
-    # search_word = ""
-    # search_query_list = ['author', 'title', 'date', 'content']
-    # for word in search_query_list:
-    #     if request.args.get(word, "") == "":
-    #         continue
-    #     else:
-    #         search_word = request.args.get(word)
-    #         key_word = word
-    #
-    # if search_word == "":
-    #     return jsonify({"error": f"Your - query does not match any post"}), 400
-    # else:
-    #     posts = [post for post in blog_posts if search_word in post.get(key_word)]
-    # if not posts:
-    #     return jsonify({"error": "Your search query does not match any post"}), 400
-    # else:
-    #     return jsonify(posts)
-
 
 @app.route('/api/posts/like/<int:post_id>')
 def like(post_id):
     """
-       Increase the like count by 1, updates the blogpost database and loads the index.html page to view the changes
+       Increase the like count by 1, updates the blogpost database and return the updated blogposts data to client
     :param post_id:
     :return:
     """
@@ -209,6 +216,7 @@ def like(post_id):
     except JSONDecodeError:
         return jsonify({"message": "Oops, there is a problem. It is not you, we promise !!!"}), 500
 
+    # Iterates over the blogposts to find the post with the matching id
     for post_data in blog_posts:
         if post_data['id'] == post_id:
             likes = post_data['likes'] + 1
